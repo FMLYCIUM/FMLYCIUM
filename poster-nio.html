@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 | 蔚来-漫游路书</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // 配置Tailwind自定义颜色和字体
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#121212',
+                        secondary: '#F5F5F5',
+                        accent: '#FFFFFF',
+                        // 各分类主题色
+                        'poster-blue': '#4A6FA5',
+                        'poster-red': '#C9184A',
+                        'poster-yellow': '#FFD166',
+                        'poster-green': '#06D6A0',
+                        'ui-blue': '#9BB0C1',
+                        'ui-purple': '#8A7EB5',
+                        'data-purple': '#5A189A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .image-slider {
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
+            }
+            .image-slide {
+                scroll-snap-align: start;
+            }
+            .text-balance {
+                text-wrap: balance;
+            }
+            .nav-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0.3);
+                transition: background-color 0.3s ease;
+            }
+            .nav-dot.active {
+                background-color: rgba(255, 255, 255, 1);
+            }
+            .poster-container {
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: theme('colors.primary'); /* 与背景颜色一致 */
+            }
+            .poster-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0; /* 移除海报容器之间的缝隙 */
+            }
+            @screen md {
+                .poster-grid {
+                    gap: 0;
+                }
+            }
+            .text-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-primary text-accent overflow-x-hidden">
+    <!-- 导航栏 -->
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-4">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-light tracking-wider">PORTFOLIO</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="works.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">作品</a>
+                <a href="about.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">关于</a>
+                <a href="contact.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">联系</a>
+            </div>
+            <button class="md:hidden text-2xl" id="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex justify-end p-6">
+            <button id="menu-close" class="text-2xl">
+
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+            <a href="works.html" class="hover:text-gray-300 transition-colors duration-300">作品</a>
+            <a href="about.html" class="hover:text-gray-300 transition-colors duration-300">关于</a>
+            <a href="contact.html" class="hover:text-gray-300 transition-colors duration-300">联系</a>
+        </div>
+    </div>
+
+    <!-- 页面内容 -->
+    <main class="pt-24 pb-16 px-6 md:px-12 container mx-auto">
+        <!-- 返回按钮 -->
+        <div class="mb-10">
+            <a href="poster.html" class="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300">
+                <i class="fa fa-arrow-left mr-2"></i>
+                <span class="text-sm tracking-widest">返回宣传海报</span>
+            </a>
+        </div>
+
+        <!-- 作品标题 -->
+        <div class="mb-16 text-center">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-widest mb-4">蔚来</h1>
+            <p class="text-gray-400 max-w-2xl mx-auto">漫游路书</p>
+        </div>
+
+        <!-- 作品展示区 -->
+        <div class="space-y-6">
+            <!-- 作品1和作品2合并 -->
+            <div class="bg-poster-blue/10 rounded-lg overflow-hidden">
+                <!-- 海报和文字说明区域 -->
+                <div class="poster-grid">
+                    <div class="poster-container" id="poster-container-1">
+                        <img src="https://pic1.imgdb.cn/item/686ffa7658cb8da5c89ac64e.png" alt="蔚来-漫游路书海报1" class="max-h-full w-auto object-contain" id="poster-1">
+                    </div>
+                    <div class="poster-container" id="poster-container-2">
+                        <img src="https://pic1.imgdb.cn/item/686fe7f858cb8da5c89abf91.png" alt="蔚来-漫游路书海报2" class="max-h-full w-auto object-contain" id="poster-2">
+                    </div>
+                    <div class="text-container bg-poster-blue/5">
+                        <h3 class="text-base font-light mb-3">蔚来-漫游路书系列海报</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed">
+                            该系列海报为蔚来的充换电站宣传海报，藉由从长春出发前往全国各地的路线，以显示蔚来在充换电站上给用户带来的便利体验。
+
+                            <br><br>
+                            海报采用自然色系，选取了两个与东北长春迥异的地点，分别是西北甘肃的天水与东南浙江的杭州，以两地极具代表性的自然风光麦积山与西湖作为目的地，旨在能够在一条路线上展示出中国辽阔领土上的差异风格。此外，长途驾驶对充换电站的需求也更高。
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-[10px] text-gray-400">尺寸: 5335×12500px</span>
+                            <span class="text-[10px] text-gray-400">2025年作品</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+       <!-- 页脚 -->
+        <footer class="bg-primary py-12 px-6 md:px-12 border-t border-gray-800">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-xl font-light tracking-wider mb-2">费月婷</h3>
+                        <p class="text-gray-400 text-sm">视觉设计师 | UI/UX设计师 | 编导</p>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="https://www.instagram.com/fmlycium?igsh=MXJ5NDZwemQ4bnFrNg==" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="https://www.behance.net/fmlyciumlin" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/%E6%9C%88%E5%A9%B7-%E8%B4%B9-35b483374" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-12 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
+                    <p>&copy; 2025 费月婷. 保留所有权利.</p>
+                </div>
+            </div>
+        </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.remove('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                nav.classList.add('py-4');
+            }
+        });
+
+        // 移动端菜单
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.remove('translate-x-full');
+        });
+
+        document.getElementById('menu-close').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('translate-x-full');
+        });
+
+        // 固定海报尺寸为高725px，宽按比例计算
+        function adjustPosterSize() {
+            const posterHeight = 725; // 固定高度为725px
+            const posterAspectRatio = 5335 / 12500; // 海报宽高比
+            const posterWidth = posterHeight * posterAspectRatio; // 计算宽度
+            
+            // 获取海报容器
+            const posterContainers = document.querySelectorAll('.poster-container');
+            
+            // 设置海报容器的高度和宽度
+            posterContainers.forEach(container => {
+                container.style.height = `${posterHeight}px`;
+                container.style.width = '100%'; // 保持容器宽度为100%
+            });
+            
+            // 设置海报图片的尺寸，保持比例
+            const posters = document.querySelectorAll('.poster-container img');
+            posters.forEach(poster => {
+                poster.style.width = `${posterWidth}px`;
+                poster.style.height = `${posterHeight}px`;
+            });
+            
+            // 设置文字容器的高度与海报一致
+            const textContainer = document.querySelector('.text-container');
+            if (textContainer) {
+                textContainer.style.height = `${posterHeight}px`;
+            }
+        }
+
+        // 页面加载时调整尺寸
+        window.addEventListener('load', adjustPosterSize);
+        
+        // 窗口大小改变时重新调整尺寸
+        window.addEventListener('resize', adjustPosterSize);
+    </script>
+</body>
+</html>

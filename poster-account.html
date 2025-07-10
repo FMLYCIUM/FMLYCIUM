@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 | 账号运营-募集活动</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // 配置Tailwind自定义颜色和字体
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#121212',
+                        secondary: '#F5F5F5',
+                        accent: '#FFFFFF',
+                        // 新增淡蓝色系
+                        'light-blue-1': '#E6F4F1',
+                        'light-blue-2': '#BFE4DE',
+                        'light-blue-3': '#99D4CC',
+                        'light-blue-4': '#73C5B9',
+                        'light-blue-5': '#4DA5A6',
+                        'light-blue-6': '#3D8499',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .poster-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1rem;
+            }
+            .text-balance {
+                text-wrap: balance;
+            }
+            .pagination-btn {
+                @apply px-4 py-2 rounded-md transition-colors duration-300;
+            }
+            .pagination-btn.active {
+                @apply bg-light-blue-5 text-white;
+            }
+            .weibo-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+                gap: 0.3rem;
+            }
+            .long-poster-container {
+                max-width: 100%;
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+                padding-bottom: 1rem;
+            }
+            .long-poster {
+                height: auto;
+                max-height: 60vh;
+                width: auto;
+            }
+            .two-posters-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+            .scalable-poster {
+                max-width: 100%;
+                height: auto;
+                aspect-ratio: 1/1;
+                object-fit: contain;
+            }
+            /* 隐藏滚动条但保留功能 */
+            .hide-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+            .hide-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-primary text-accent overflow-x-hidden">
+    <!-- 导航栏 -->
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-4">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-light tracking-wider">PORTFOLIO</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="works.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">作品</a>
+                <a href="about.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">关于</a>
+                <a href="contact.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">联系</a>
+            </div>
+            <button class="md:hidden text-2xl" id="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex justify-end p-6">
+            <button id="menu-close" class="text-2xl">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+            <a href="works.html" class="hover:text-gray-300 transition-colors duration-300">作品</a>
+            <a href="about.html" class="hover:text-gray-300 transition-colors duration-300">关于</a>
+            <a href="contact.html" class="hover:text-gray-300 transition-colors duration-300">联系</a>
+        </div>
+    </div>
+
+    <!-- 页面内容 -->
+    <main class="pt-24 pb-16 px-6 md:px-12 container mx-auto">
+        <!-- 返回按钮 -->
+        <div class="mb-10">
+            <a href="poster.html" class="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300">
+                <i class="fa fa-arrow-left mr-2"></i>
+                <span class="text-sm tracking-widest">返回宣传海报</span>
+            </a>
+        </div>
+
+        <!-- 作品标题 -->
+        <div class="mb-16 text-center">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-widest mb-4">账号运营活动</h1>
+            <p class="text-gray-400 max-w-2xl mx-auto">微博账号运营募集投稿活动</p>
+        </div>
+
+        <!-- 作品说明 -->
+        <div class="mb-12 p-6 bg-light-blue-6/20 rounded-lg">
+            <h3 class="text-xl font-light mb-4">系列说明</h3>
+            <p class="text-gray-300 text-sm leading-relaxed">
+                本系列为账号运营的募集投稿活动设计，包含一张预热海报、两个微博9宫格拼图和一张时间线宣传长图。整体采用淡蓝色系，营造出清新、专业的氛围，符合活动的主题和目标受众。所有设计均考虑了社交媒体平台的传播特性，确保在各种设备上都能有良好的展示效果。
+            </p>
+            <div class="mt-6 flex flex-wrap gap-4">
+                <div class="flex items-center">
+                    <i class="fa fa-calendar-o mr-2 text-light-blue-4"></i>
+                    <span class="text-sm text-gray-400">2023年作品</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fa fa-picture-o mr-2 text-light-blue-4"></i>
+                    <span class="text-sm text-gray-400">19张作品</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fa fa-tags mr-2 text-light-blue-4"></i>
+                    <span class="text-sm text-gray-400">淡蓝色系、社交媒体、活动宣传</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 预热海报 -->
+        <div class="mb-16">
+            <h3 class="text-xl font-light mb-6">预热海报</h3>
+            <div class="bg-light-blue-6/30 rounded-lg overflow-hidden max-w-2xl mx-auto relative group">
+                <img src="https://pic1.imgdb.cn/item/686fdb4a58cb8da5c89abb95.jpg" alt="账号运营募集活动预热海报" class="w-full h-auto transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdb4a58cb8da5c89abb95.jpg', '预热海报', '1080×1080px')">查看大图</button>
+                </div>
+            </div>
+            <div class="mt-3 text-center">
+                <h4 class="text-base font-light">账号运营募集活动预热海报</h4>
+                <span class="text-xs text-gray-400">尺寸: 1080×1080px</span>
+            </div>
+        </div>
+
+        <!-- 微博9宫格拼图 - 第一组 -->
+        <div class="mb-16">
+            <h3 class="text-xl font-light mb-6">微博9宫格拼图 - 募集完成后向粉丝进行活动宣传</h3>
+            
+            <div class="bg-light-blue-6/30 rounded-lg overflow-hidden p-3">
+                <div class="weibo-grid aspect-square">
+                    <!-- 九宫格图片1-9 -->
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdc9d58cb8da5c89abbda.png" alt="微博九宫格拼图1-1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdc9d58cb8da5c89abbda.png', '微博九宫格拼图1-1', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdc9d58cb8da5c89abbdb.png" alt="微博九宫格拼图1-2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdc9d58cb8da5c89abbdb.png', '微博九宫格拼图1-2', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdc9d58cb8da5c89abbd9.png" alt="微博九宫格拼图1-3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdc9d58cb8da5c89abbd9.png', '微博九宫格拼图1-3', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdc9d58cb8da5c89abbd7.png" alt="微博九宫格拼图1-4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdc9d58cb8da5c89abbd7.png', '微博九宫格拼图1-4', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdc9d58cb8da5c89abbd8.png" alt="微博九宫格拼图1-5" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdc9d58cb8da5c89abbd8.png', '微博九宫格拼图1-5', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fde6658cb8da5c89abc59.png" alt="微博九宫格拼图1-6" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fde6658cb8da5c89abc59.png', '微博九宫格拼图1-6', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fde6658cb8da5c89abc58.png" alt="微博九宫格拼图1-7" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fde6658cb8da5c89abc58.png', '微博九宫格拼图1-7', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fde6658cb8da5c89abc56.png" alt="微博九宫格拼图1-8" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fde6658cb8da5c89abc56.png', '微博九宫格拼图1-8', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fde6658cb8da5c89abc57.png" alt="微博九宫格拼图1-9" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fde6658cb8da5c89abc57.png', '微博九宫格拼图1-9', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 flex items-center justify-between">
+                    <span class="text-xs text-gray-400">单张尺寸: 1080×1080px</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 微博9宫格拼图 - 第二组 -->
+        <div class="mb-16">
+            <h3 class="text-xl font-light mb-6">微博9宫格拼图 - 包含参与活动名单</h3>
+            
+            <div class="bg-light-blue-6/30 rounded-lg overflow-hidden p-3">
+                <div class="weibo-grid aspect-square">
+                    <!-- 九宫格图片10-18 -->
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdf7358cb8da5c89abca0.png" alt="微博九宫格拼图2-1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdf7358cb8da5c89abca0.png', '微博九宫格拼图2-1', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdf7358cb8da5c89abc9e.png" alt="微博九宫格拼图2-2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdf7358cb8da5c89abc9e.png', '微博九宫格拼图2-2', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdf7358cb8da5c89abc9f.png" alt="微博九宫格拼图2-3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdf7358cb8da5c89abc9f.png', '微博九宫格拼图2-3', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdf7358cb8da5c89abc9d.png" alt="微博九宫格拼图2-4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdf7358cb8da5c89abc9d.png', '微博九宫格拼图2-4', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdf7358cb8da5c89abc9c.png" alt="微博九宫格拼图2-5" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdf7358cb8da5c89abc9c.png', '微博九宫格拼图2-5', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdff158cb8da5c89abcb5.png" alt="微博九宫格拼图2-6" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdff158cb8da5c89abcb5.png', '微博九宫格拼图2-6', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdff158cb8da5c89abcb4.png" alt="微博九宫格拼图2-7" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdff158cb8da5c89abcb4.png', '微博九宫格拼图2-7', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdff158cb8da5c89abcb2.png" alt="微博九宫格拼图2-8" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdff158cb8da5c89abcb2.png', '微博九宫格拼图2-8', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-md relative group">
+                        <img src="https://pic1.imgdb.cn/item/686fdff158cb8da5c89abcb3.png" alt="微博九宫格拼图2-9" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-3 py-1 border border-white text-xs tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdff158cb8da5c89abcb3.png', '微博九宫格拼图2-9', '1080×1080px')">查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 flex items-center justify-between">
+                    <span class="text-xs text-gray-400">单张尺寸: 1080×1080px</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 时间线宣传图（长图） -->
+        <div class="mb-16">
+            <h3 class="text-xl font-light mb-6">时间线宣传图</h3>
+            <div class="bg-light-blue-6/30 rounded-lg overflow-hidden aspect-[1920/10000] relative group">
+                <img src="https://pic1.imgdb.cn/item/686fe42358cb8da5c89abd9e.jpg" alt="账号运营募集活动时间线宣传图" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('timeline-poster.jpg', '时间线宣传图', '1920×10000px')">查看大图</button>
+                </div>
+            </div>
+            <div class="mt-3 flex items-center justify-between">
+                <h4 class="text-base font-light">账号运营募集活动时间线宣传图</h4>
+                <span class="text-xs text-gray-400">尺寸: 1920×10000px</span>
+            </div>
+        </div>
+
+        <!-- 大图查看模态框 -->
+        <div id="image-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+            <div class="max-w-6xl w-full p-4 relative">
+                <button id="close-modal" class="absolute top-4 right-4 text-white text-2xl hover:text-light-blue-4 transition-colors duration-300">
+                    <i class="fa fa-times"></i>
+                </button>
+                <div class="bg-light-blue-6/30 rounded-lg overflow-hidden">
+                    <img id="modal-image" src="" alt="大图查看" class="w-full h-auto">
+                </div>
+                <h3 id="modal-title" class="text-xl font-light mt-4 text-center"></h3>
+                <div id="modal-details" class="text-sm text-gray-400 text-center mt-2"></div>
+            </div>
+        </div>
+
+ 
+    </main>
+
+        <!-- 页脚 -->
+        <footer class="bg-primary py-12 px-6 md:px-12 border-t border-gray-800">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-xl font-light tracking-wider mb-2">费月婷</h3>
+                        <p class="text-gray-400 text-sm">视觉设计师 | UI/UX设计师 | 编导</p>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="https://www.instagram.com/fmlycium?igsh=MXJ5NDZwemQ4bnFrNg==" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="https://www.behance.net/fmlyciumlin" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/%E6%9C%88%E5%A9%B7-%E8%B4%B9-35b483374" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-12 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
+                    <p>&copy; 2025 费月婷. 保留所有权利.</p>
+                </div>
+            </div>
+        </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.remove('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                nav.classList.add('py-4');
+            }
+        });
+
+        // 移动端菜单
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.remove('translate-x-full');
+        });
+
+        document.getElementById('menu-close').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('translate-x-full');
+        });
+
+        // 大图查看模态框
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDetails = document.getElementById('modal-details');
+        const closeModal = document.getElementById('close-modal');
+
+        function openModal(imgSrc, title, details) {
+            modalImage.src = imgSrc;
+            modalTitle.textContent = title;
+            modalDetails.textContent = details ? `尺寸: ${details}` : '';
+            
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+
+        closeModal.addEventListener('click', function() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = ''; // 恢复背景滚动
+        });
+
+        // 点击模态框背景也可以关闭
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>

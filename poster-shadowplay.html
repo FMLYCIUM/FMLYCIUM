@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 | 关氏皮影戏走进校园企划</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // 配置Tailwind自定义颜色和字体
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#121212',
+                        secondary: '#F5F5F5',
+                        accent: '#FFFFFF',
+                        // 各分类主题色
+                        'poster-blue': '#4A6FA5',
+                        'poster-red': '#C9184A',
+                        'poster-yellow': '#FFD166',
+                        'poster-green': '#06D6A0',
+                        'ui-blue': '#9BB0C1',
+                        'ui-purple': '#8A7EB5',
+                        'data-purple': '#5A189A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .poster-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 1.5rem;
+            }
+            .text-balance {
+                text-wrap: balance;
+            }
+            .pagination-btn {
+                @apply px-4 py-2 rounded-md transition-colors duration-300;
+            }
+            .pagination-btn.active {
+                @apply bg-poster-yellow text-primary;
+            }
+            .ppt-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 1rem;
+            }
+            .aspect-16-9 {
+                aspect-ratio: 16/9;
+            }
+            .aspect-3-4 {
+                aspect-ratio: 3/4;
+            }
+            .aspect-3508-4961 {
+                aspect-ratio: 3508/4961;
+            }
+            .aspect-5400-9000 {
+                aspect-ratio: 3/5;
+            }
+            .two-posters-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            @screen md {
+                .two-posters-grid {
+                    grid-template-columns: 1fr 1fr;
+                    gap: 2rem;
+                }
+            }
+        }
+    </style>
+</head>
+<body class="bg-primary text-accent overflow-x-hidden">
+    <!-- 导航栏 -->
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-4">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-light tracking-wider">PORTFOLIO</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="works.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">作品</a>
+                <a href="about.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">关于</a>
+                <a href="contact.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">联系</a>
+            </div>
+            <button class="md:hidden text-2xl" id="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex justify-end p-6">
+            <button id="menu-close" class="text-2xl">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+            <a href="works.html" class="hover:text-gray-300 transition-colors duration-300">作品</a>
+            <a href="about.html" class="hover:text-gray-300 transition-colors duration-300">关于</a>
+            <a href="contact.html" class="hover:text-gray-300 transition-colors duration-300">联系</a>
+        </div>
+    </div>
+
+    <!-- 页面内容 -->
+    <main class="pt-24 pb-16 px-6 md:px-12 container mx-auto">
+        <!-- 返回按钮 -->
+        <div class="mb-10">
+            <a href="poster.html" class="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300">
+                <i class="fa fa-arrow-left mr-2"></i>
+                <span class="text-sm tracking-widest">返回宣传海报</span>
+            </a>
+        </div>
+
+        <!-- 作品标题 -->
+        <div class="mb-16 text-center">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-widest mb-4">关氏皮影戏</h1>
+            <p class="text-gray-400 max-w-2xl mx-auto">关氏皮影戏走进校园企划</p>
+        </div>
+
+        <!-- 作品说明 -->
+        <div class="mb-12 p-6 bg-poster-red/10 rounded-lg">
+            <h3 class="text-xl font-light mb-4">系列说明</h3>
+            <p class="text-gray-300 text-sm leading-relaxed">
+                关氏皮影戏走进校园企划是一个面向学生群体的传统文化推广活动。沈阳关氏皮影是源自辽宁省的一项具有深厚历史底蕴和独特艺术特色的非物质文化遗产。该系列设计包括两张宣传海报，分别为线上活动宣传海报与线下工坊宣传海报，形成了一套完整的活动视觉体系。
+            </p>
+            <div class="mt-6 flex flex-wrap gap-4">
+                <div class="flex items-center">
+                    <i class="fa fa-calendar-o mr-2 text-poster-red"></i>
+                    <span class="text-sm text-gray-400">2025年作品</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fa fa-picture-o mr-2 text-poster-red"></i>
+                    <span class="text-sm text-gray-400">2张作品</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fa fa-tags mr-2 text-poster-red"></i>
+                    <span class="text-sm text-gray-400">传统文化、皮影戏</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 宣传海报1和宣传海报2并列显示 -->
+        <div class="mb-16">
+            <h3 class="text-xl font-light mb-6">宣传海报</h3>
+            <div class="two-posters-grid">
+                <!-- 宣传海报1 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-3508-4961 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fef4f58cb8da5c89ac1a0.jpg" alt="关氏皮影戏宣传海报1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fef4f58cb8da5c89ac1a0.jpg', '宣传海报1', '3508×4961px')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <h4 class="text-base font-light">宣传海报1</h4>
+                        <span class="text-xs text-gray-400">尺寸: 3508×4961px</span>
+                    </div>
+                </div>
+                
+                <!-- 宣传海报2 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-5400-9000 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fefad58cb8da5c89ac1ac.png" alt="关氏皮影戏宣传海报2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fefad58cb8da5c89ac1ac.png', '宣传海报2', '5400×9000px')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <h4 class="text-base font-light">宣传海报2</h4>
+                        <span class="text-xs text-gray-400">尺寸: 5400×9000px</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 大图查看模态框 -->
+        <div id="image-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+            <div class="max-w-6xl w-full p-4 relative">
+                <button id="close-modal" class="absolute top-4 right-4 text-white text-2xl hover:text-poster-red transition-colors duration-300">
+                    <i class="fa fa-times"></i>
+                </button>
+                <div class="bg-poster-red/20 rounded-lg overflow-hidden">
+                    <img id="modal-image" src="" alt="大图查看" class="w-full h-auto">
+                </div>
+                <h3 id="modal-title" class="text-xl font-light mt-4 text-center"></h3>
+                <div id="modal-details" class="text-sm text-gray-400 text-center mt-2"></div>
+            </div>
+        </div>
+
+
+    </main>
+
+        <!-- 页脚 -->
+        <footer class="bg-primary py-12 px-6 md:px-12 border-t border-gray-800">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-xl font-light tracking-wider mb-2">费月婷</h3>
+                        <p class="text-gray-400 text-sm">视觉设计师 | UI/UX设计师 | 编导</p>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="https://www.instagram.com/fmlycium?igsh=MXJ5NDZwemQ4bnFrNg==" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="https://www.behance.net/fmlyciumlin" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/%E6%9C%88%E5%A9%B7-%E8%B4%B9-35b483374" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-12 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
+                    <p>&copy; 2025 费月婷. 保留所有权利.</p>
+                </div>
+            </div>
+        </footer>
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.remove('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                nav.classList.add('py-4');
+            }
+        });
+
+        // 移动端菜单
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.remove('translate-x-full');
+        });
+
+        document.getElementById('menu-close').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('translate-x-full');
+        });
+
+        // 大图查看模态框
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDetails = document.getElementById('modal-details');
+        const closeModal = document.getElementById('close-modal');
+
+        function openModal(imgSrc, title, details) {
+            modalImage.src = imgSrc;
+            modalTitle.textContent = title;
+            modalDetails.textContent = details ? `尺寸: ${details}` : '';
+            
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+
+        closeModal.addEventListener('click', function() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = ''; // 恢复背景滚动
+        });
+
+        // 点击模态框背景也可以关闭
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
