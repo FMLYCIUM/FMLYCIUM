@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 | 卡西欧-KV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // 配置Tailwind自定义颜色和字体
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#121212',
+                        secondary: '#F5F5F5',
+                        accent: '#FFFFFF',
+                        // 各分类主题色
+                        'poster-blue': '#4A6FA5',
+                        'poster-red': '#C9184A',
+                        'poster-yellow': '#FFD166',
+                        'poster-green': '#06D6A0',
+                        'ui-blue': '#9BB0C1',
+                        'ui-purple': '#8A7EB5',
+                        'data-purple': '#5A189A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .poster-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 1.5rem;
+            }
+            .text-balance {
+                text-wrap: balance;
+            }
+            .pagination-btn {
+                @apply px-4 py-2 rounded-md transition-colors duration-300;
+            }
+            .pagination-btn.active {
+                @apply bg-poster-red text-white;
+            }
+            .ppt-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 1rem;
+            }
+            .aspect-16-9 {
+                aspect-ratio: 16/9;
+            }
+        }
+    </style>
+</head>
+<body class="bg-primary text-accent overflow-x-hidden">
+    <!-- 导航栏 -->
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-4">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="../index.html" class="text-xl md:text-2xl font-light tracking-wider">PORTFOLIO</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="../works.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">作品</a>
+                <a href="../about.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">关于</a>
+                <a href="../contact.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">联系</a>
+            </div>
+            <button class="md:hidden text-2xl" id="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex justify-end p-6">
+            <button id="menu-close" class="text-2xl">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+            <a href="../works.html" class="hover:text-gray-300 transition-colors duration-300">作品</a>
+            <a href="../about.html" class="hover:text-gray-300 transition-colors duration-300">关于</a>
+            <a href="../contact.html" class="hover:text-gray-300 transition-colors duration-300">联系</a>
+        </div>
+    </div>
+
+    <!-- 页面内容 -->
+    <main class="pt-24 pb-16 px-6 md:px-12 container mx-auto">
+        <!-- 返回按钮 -->
+        <div class="mb-10">
+            <a href="../poster.html" class="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300">
+                <i class="fa fa-arrow-left mr-2"></i>
+                <span class="text-sm tracking-widest">返回宣传海报</span>
+            </a>
+        </div>
+
+        <!-- 作品标题 -->
+        <div class="mb-16 text-center">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-widest mb-4">卡西欧</h1>
+            <p class="text-gray-400 max-w-2xl mx-auto">G-shock系列红焱GWG-2040FR-1A宣传策划</p>
+        </div>
+
+        <!-- 作品说明 -->
+        <div class="mb-12 p-6 bg-poster-red/10 rounded-lg">
+            <h3 class="text-xl font-light mb-4">系列说明</h3>
+            <p class="text-gray-300 text-sm leading-relaxed">
+                卡西欧系列设计项目包含品牌视觉设计的完整解决方案，通过黑红色系的强烈对比，展现产品的特点与时尚魅力。设计注重细节和层次感，通过光影效果和独特的排版方式，创造出视觉冲击力强且富有个性的画面。该系列包括一个主视觉(KV)、一个横幅(BANNER)以及15页品牌介绍和活动介绍。
+          </p>
+            <div class="mt-6 flex flex-wrap gap-4">
+                <div class="flex items-center">
+                    <i class="fa fa-calendar-o mr-2 text-poster-red"></i>
+                    <span class="text-sm text-gray-400">2025年作品</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fa fa-picture-o mr-2 text-poster-red"></i>
+                    <span class="text-sm text-gray-400">17张作品</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fa fa-tags mr-2 text-poster-red"></i>
+                    <span class="text-sm text-gray-400">运动手表、力量感、时尚</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- BANNER作品 -->
+        <div class="mb-16">
+            <h3 class="text-xl font-light mb-6">横幅设计 (Banner)</h3>
+            <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-[1920/700] relative group">
+                <img src="https://pic1.imgdb.cn/item/686fe55b58cb8da5c89abe21.png" alt="卡西欧-BANNER" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe55b58cb8da5c89abe21.png', '横幅设计', '1920×700px')">查看大图</button>
+                </div>
+            </div>
+            <div class="mt-3 flex items-center justify-between">
+                <h4 class="text-base font-light">横幅设计</h4>
+                <span class="text-xs text-gray-400">尺寸: 1920×700px</span>
+            </div>
+        </div>
+
+        <!-- PPT页面 -->
+        <div class="mb-16">
+            <h3 class="text-xl font-light mb-6">品牌与活动介绍</h3>
+            <p class="text-gray-400 text-sm mb-6">共15页</p>
+            <div class="ppt-grid">
+                <!-- 生成15个PPT缩略图 -->
+                <!-- 实际项目中可替换为真实的PPT页面截图 -->
+                <!-- 第1页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe5f558cb8da5c89abecb.jpg" alt="PPT页面1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe5f558cb8da5c89abecb.jpg', 'PPT页面1', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">产品概况</h4>
+                        <span class="text-xs text-gray-400">01</span>
+                    </div>
+                </div>
+                
+                <!-- 第2页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe5f458cb8da5c89abec9.jpg" alt="PPT页面2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe5f458cb8da5c89abec9.jpg', 'PPT页面2', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">SWOT分析</h4>
+                        <span class="text-xs text-gray-400">02</span>
+                    </div>
+                </div>
+                
+                <!-- 第3页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe5f458cb8da5c89abec8.jpg" alt="PPT页面3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe5f458cb8da5c89abec8.jpg', 'PPT页面3', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">竞品分析</h4>
+                        <span class="text-xs text-gray-400">03</span>
+                    </div>
+                </div>
+                
+                <!-- 第4页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe5f558cb8da5c89abeca.jpg" alt="PPT页面4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe5f558cb8da5c89abeca.jpg', 'PPT页面4', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">竞品分析-佳明</h4>
+                        <span class="text-xs text-gray-400">04</span>
+                    </div>
+                </div>
+                
+                <!-- 第5页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe5f558cb8da5c89abecc.jpg" alt="PPT页面5" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe5f558cb8da5c89abecc.jpg', 'PPT页面5', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">竞品分析-欧米茄</h4>
+                        <span class="text-xs text-gray-400">05</span>
+                    </div>
+                </div>
+                
+                <!-- 第6页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe6ac58cb8da5c89abf26.jpg" alt="PPT页面6" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe6ac58cb8da5c89abf26.jpg', 'PPT页面6', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">运营方案</h4>
+                        <span class="text-xs text-gray-400">06</span>
+                    </div>
+                </div>
+                
+                <!-- 第7页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe6ad58cb8da5c89abf27.jpg" alt="PPT页面7" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe6ad58cb8da5c89abf27.jpg', 'PPT页面7', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">策划活动目标</h4>
+                        <span class="text-xs text-gray-400">07</span>
+                    </div>
+                </div>
+                
+                <!-- 第8页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe6ad58cb8da5c89abf29.jpg" alt="PPT页面8" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe6ad58cb8da5c89abf29.jpg', 'PPT页面8', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">策划活动时间规划</h4>
+                        <span class="text-xs text-gray-400">08</span>
+                    </div>
+                </div>
+                
+                <!-- 第9页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe6ad58cb8da5c89abf28.jpg" alt="PPT页面9" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe6ad58cb8da5c89abf28.jpg', 'PPT页面9', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">预热活动</h4>
+                        <span class="text-xs text-gray-400">09</span>
+                    </div>
+                </div>
+                
+                <!-- 第10页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe6ad58cb8da5c89abf2a.jpg" alt="PPT页面10" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe6ad58cb8da5c89abf2a.jpg', 'PPT页面10', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">预热活动</h4>
+                        <span class="text-xs text-gray-400">10</span>
+                    </div>
+                </div>
+                
+                <!-- 第11页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe71c58cb8da5c89abf4e.jpg" alt="PPT页面11" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe71c58cb8da5c89abf4e.jpg', 'PPT页面11', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">图示</h4>
+                        <span class="text-xs text-gray-400">11</span>
+                    </div>
+                </div>
+                
+                <!-- 第12页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe71c58cb8da5c89abf4c.jpg" alt="PPT页面12" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe71c58cb8da5c89abf4c.jpg', 'PPT页面12', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">产品信息</h4>
+                        <span class="text-xs text-gray-400">12</span>
+                    </div>
+                </div>
+                
+                <!-- 第13页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe71b58cb8da5c89abf46.jpg" alt="PPT页面13" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe71b58cb8da5c89abf46.jpg', 'PPT页面13', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">产品亮点</h4>
+                        <span class="text-xs text-gray-400">13</span>
+                    </div>
+                </div>
+                
+                <!-- 第14页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe71c58cb8da5c89abf50.jpg" alt="PPT页面14" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe71c58cb8da5c89abf50.jpg', 'PPT页面14', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">项目背景与思考</h4>
+                        <span class="text-xs text-gray-400">14</span>
+                    </div>
+                </div>
+                
+                <!-- 第15页 -->
+                <div class="group">
+                    <div class="bg-poster-red/20 rounded-lg overflow-hidden aspect-16-9 relative">
+                        <img src="https://pic1.imgdb.cn/item/686fe71c58cb8da5c89abf4f.jpg" alt="PPT页面15" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe71c58cb8da5c89abf4f.jpg', 'PPT页面15', '16:9')">查看大图</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 flex justify-between">
+                        <h4 class="text-sm font-light">SLOGAN</h4>
+                        <span class="text-xs text-gray-400">15</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KV作品与文字阐释 -->
+        <div class="mb-16">
+            <h3 class="text-xl font-light mb-6">主视觉设计 (KV)</h3>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2 bg-poster-red/20 rounded-lg overflow-hidden aspect-[1242/2688] relative group">
+                    <img src="https://pic1.imgdb.cn/item/686fe55b58cb8da5c89abe22.jpg" alt="卡西欧-KV主视觉" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fe55b58cb8da5c89abe22.jpg', '主视觉设计', '1242×2688px')">查看大图</button>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex flex-col justify-center">
+                    <h4 class="text-lg font-light mb-4">设计阐释</h4>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                        此主视觉设计以雪山攀登的极限场景为视觉基底，苍茫冰雪与险峻山石勾勒户外探险语境，呼应 “攀登不止” 的行动号召，同时暗合 G - SHOCK 应对极端环境的功能定位。手表以红黑撞色搭配碳纤纹理，“红焱” 设计呼应太阳耀斑的独特美学，满足潮流群体对个性稀缺的追求；放大硬朗表身与TEMP、ALTI等细节，借工业质感与功能符号，直观传递无畏环境的可靠性能，实现潮流表达与专业性能的双向破圈。
+                    </p>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                        文案 “坚韧如磐 攀登不止” 串联产品属性与用户精神，对户外爱好者而言，它是放肆探索的装备支撑；对潮流追随者来说，更是彰显态度的时尚符号。在卡西欧四十周年节点，设计不仅强化 G - SHOCK 系列 “坚韧” 的核心基因，更以红焱设计拓展 “潮流个性” 新维度，将手表从实用工具升维为冒险路上的坚韧伙伴，深度触达目标人群功能性与个性化的双重诉求。
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-base font-light">主视觉设计</h4>
+                        <span class="text-xs text-gray-400">尺寸: 1242×2688px</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 大图查看模态框 -->
+        <div id="image-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+            <div class="max-w-6xl w-full p-4 relative">
+                <button id="close-modal" class="absolute top-4 right-4 text-white text-2xl hover:text-poster-red transition-colors duration-300">
+                    <i class="fa fa-times"></i>
+                </button>
+                <div class="bg-poster-red/20 rounded-lg overflow-hidden">
+                    <img id="modal-image" src="" alt="大图查看" class="w-full h-auto">
+                </div>
+                <h3 id="modal-title" class="text-xl font-light mt-4 text-center"></h3>
+                <div id="modal-details" class="text-sm text-gray-400 text-center mt-2"></div>
+            </div>
+        </div>
+
+
+</main>
+
+       <!-- 页脚 -->
+        <footer class="bg-primary py-12 px-6 md:px-12 border-t border-gray-800">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-xl font-light tracking-wider mb-2">费月婷</h3>
+                        <p class="text-gray-400 text-sm">视觉设计师 | UI/UX设计师 | 编导</p>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="https://www.instagram.com/fmlycium?igsh=MXJ5NDZwemQ4bnFrNg==" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="https://www.behance.net/fmlyciumlin" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/%E6%9C%88%E5%A9%B7-%E8%B4%B9-35b483374" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-12 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
+                    <p>&copy; 2025 费月婷. 保留所有权利.</p>
+                </div>
+            </div>
+        </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.remove('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                nav.classList.add('py-4');
+            }
+        });
+
+        // 移动端菜单
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.remove('translate-x-full');
+        });
+
+        document.getElementById('menu-close').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('translate-x-full');
+        });
+
+        // 大图查看模态框
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDetails = document.getElementById('modal-details');
+        const closeModal = document.getElementById('close-modal');
+
+        function openModal(imgSrc, title, details) {
+            modalImage.src = imgSrc;
+            modalTitle.textContent = title;
+            modalDetails.textContent = `尺寸: ${details}`;
+            
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+
+        closeModal.addEventListener('click', function() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = ''; // 恢复背景滚动
+        });
+
+        // 点击模态框背景也可以关闭
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
