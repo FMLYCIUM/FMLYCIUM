@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 | 首页</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // 配置Tailwind自定义颜色和字体
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#121212',
+                        secondary: '#F5F5F5',
+                        accent: '#FFFFFF',
+                        poster: '#1E40AF', // 海报分类颜色
+                        web: '#16A34A',    // 网页设计分类颜色
+                        video: '#C2410C',  // 视频作品分类颜色
+                        brand: '#7C3AED',  // 品牌设计分类颜色
+                        data: '#0284C7',   // 数据新闻分类颜色
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .parallax {
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            .text-balance {
+                text-wrap: balance;
+            }
+            .scroll-indicator {
+                animation: bounce 2s infinite;
+            }
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+                40% {transform: translateY(-20px);}
+                60% {transform: translateY(-10px);}
+            }
+            .fade-in {
+                animation: fadeIn 1.5s ease-in-out;
+            }
+            @keyframes fadeIn {
+                from {opacity: 0; transform: translateY(20px);}
+                to {opacity: 1; transform: translateY(0);}
+            }
+            .hover-scale {
+                transition: transform 0.3s ease;
+            }
+            .hover-scale:hover {
+                transform: scale(1.03);
+            }
+        }
+    </style>
+</head>
+<body class="bg-primary text-accent overflow-x-hidden">
+    <!-- 导航栏 -->
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-4">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-light tracking-wider">PORTFOLIO</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="works.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">作品</a>
+                <a href="about.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">关于</a>
+                <a href="contact.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">联系</a>
+            </div>
+            <button class="md:hidden text-2xl" id="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex justify-end p-6">
+            <button id="menu-close" class="text-2xl">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+            <a href="works.html" class="hover:text-gray-300 transition-colors duration-300">作品</a>
+            <a href="about.html" class="hover:text-gray-300 transition-colors duration-300">关于</a>
+            <a href="contact.html" class="hover:text-gray-300 transition-colors duration-300">联系</a>
+        </div>
+    </div>
+
+    <!-- 封面页内容 -->
+    <header class="h-screen flex items-center justify-center relative overflow-hidden">
+        <!-- 视差背景 -->
+        <div class="absolute inset-0 z-0 opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-b from-primary via-primary/80 to-primary"></div>
+            <!-- 背景图将在实际使用时替换 -->
+            <img src="https://pic1.imgdb.cn/item/687000de58cb8da5c89ac756.png" alt="背景" class="w-full h-full object-cover" style="filter: grayscale(100%);">
+        </div>
+
+        <!-- 主标题内容 -->
+        <div class="container mx-auto px-6 z-10 text-center fade-in">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-light tracking-widest mb-6">费月婷</h1>
+            <p class="text-xl md:text-2xl font-light text-gray-300 max-w-2xl mx-auto mb-12 text-balance">
+                视觉设计师 | UI/UX设计师 | 编导
+            </p>
+            <div class="w-16 h-px bg-accent mx-auto"></div>
+        </div>
+
+<!-- 滚动提示 -->
+<div id="scroll-indicator" class="fixed inset-x-0 bottom-10 flex justify-center transition-opacity duration-500">
+    <div class="flex flex-col items-center">
+        <p class="text-sm text-gray-400 mb-2">滚动探索</p>
+        <i class="fa fa-chevron-down text-gray-400"></i>
+    </div>
+</div>
+</header>
+
+<script>
+    // 监听页面滚动事件
+    window.addEventListener('scroll', function() {
+        const scrollIndicator = document.getElementById('scroll-indicator');
+        
+        // 当页面向下滚动50像素时，隐藏滚动提示
+        if (window.scrollY > 50) {
+            scrollIndicator.classList.add('opacity-0', 'pointer-events-none');
+        } else {
+            scrollIndicator.classList.remove('opacity-0', 'pointer-events-none');
+        }
+    });
+</script>
+
+    <!-- 作品预览区域 -->
+    <section id="featured-works" class="py-24 md:py-32">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-light tracking-wider mb-4">精选作品</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">探索我的创意作品集，涵盖视觉设计、UI/UX设计和视频编导</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 作品分类1：宣传海报 -->
+                <a href="poster.html" class="group hover-scale">
+                    <div class="relative overflow-hidden rounded-lg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-poster/90 to-transparent z-10"></div>
+                        <img src="https://pic1.imgdb.cn/item/686fe7f858cb8da5c89abf91.png" alt="宣传海报作品" class="w-full h-80 object-cover">
+                        <div class="absolute bottom-0 left-0 p-6 z-20">
+                            <h3 class="text-2xl font-light mb-2">宣传海报</h3>
+                            <p class="text-sm text-gray-200">6个系列作品</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 作品分类2：网页设计 -->
+                <a href="magzine.html" class="group hover-scale">
+                    <div class="relative overflow-hidden rounded-lg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-web/90 to-transparent z-10"></div>
+                        <img src="https://pic1.imgdb.cn/item/686fed2658cb8da5c89ac105.jpg" alt="网页设计作品" class="w-full h-80 object-cover">
+                        <div class="absolute bottom-0 left-0 p-6 z-20">
+                            <h3 class="text-2xl font-light mb-2">网页设计</h3>
+                            <p class="text-sm text-gray-200">1个系列作品</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 作品分类3：视频作品 -->
+                <a href="video.html" class="group hover-scale">
+                    <div class="relative overflow-hidden rounded-lg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-video/90 to-transparent z-10"></div>
+                        <img src="https://pic1.imgdb.cn/item/686fe21c58cb8da5c89abd37.png" alt="视频作品" class="w-full h-80 object-cover">
+                        <div class="absolute bottom-0 left-0 p-6 z-20">
+                            <h3 class="text-2xl font-light mb-2">视频作品</h3>
+                            <p class="text-sm text-gray-200">4个系列作品</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="works.html" class="inline-flex items-center px-6 py-3 border border-accent rounded hover:bg-accent hover:text-primary transition-colors duration-300">
+                    <span>查看全部作品</span>
+                    <i class="fa fa-long-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+        <!-- 页脚 -->
+        <footer class="bg-primary py-12 px-6 md:px-12 border-t border-gray-800">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-xl font-light tracking-wider mb-2">费月婷</h3>
+                        <p class="text-gray-400 text-sm">视觉设计师 | UI/UX设计师 | 编导</p>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="https://www.instagram.com/fmlycium?igsh=MXJ5NDZwemQ4bnFrNg==" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="https://www.behance.net/fmlyciumlin" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/%E6%9C%88%E5%A9%B7-%E8%B4%B9-35b483374" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-12 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
+                    <p>&copy; 2025 费月婷. 保留所有权利.</p>
+                </div>
+            </div>
+        </footer>
+
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.remove('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                nav.classList.add('py-4');
+            }
+        });
+
+        // 移动端菜单
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.remove('translate-x-full');
+        });
+
+        document.getElementById('menu-close').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('translate-x-full');
+        });
+
+        // 平滑滚动到下一页
+        document.querySelector('.scroll-indicator').addEventListener('click', function() {
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
+        });
+
+        // 视差效果
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset;
+            const bgElement = document.querySelector('header .z-0 img');
+            if (bgElement) {
+                bgElement.style.transform = `translateY(${scrollPosition * 0.4}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
