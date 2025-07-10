@@ -1,0 +1,271 @@
+    <!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>作品集 | 数据新闻</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: '#121212',
+                            secondary: '#F5F5F5',
+                            accent: '#FFFFFF',
+                            'data-purple': '#5A189A',
+                            'data-purple-light': '#9D4EDD',
+                            'data-purple-dark': '#240046',
+                            'data-gray': '#424242',
+                        },
+                        fontFamily: {
+                            sans: ['Inter', 'system-ui', 'sans-serif'],
+                        },
+                    }
+                }
+            }
+        </script>
+        <style type="text/tailwindcss">
+            @layer utilities {
+                .content-auto {
+                    content-visibility: auto;
+                }
+                .data-section {
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: all 0.6s ease;
+                }
+                .data-section.active {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                .scroll-indicator {
+                    height: 3px;
+                    background: linear-gradient(90deg, #5A189A 0%, #9D4EDD 100%);
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 0%;
+                    z-index: 100;
+                    transition: width 0.2s ease;
+                }
+                .data-title {
+                    background: linear-gradient(90deg, #5A189A 0%, #9D4EDD 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+            }
+        </style>
+    </head>
+    <body class="bg-primary text-accent overflow-x-hidden">
+        <!-- 滚动指示器 -->
+        <div class="scroll-indicator" id="scrollIndicator"></div>
+
+        <!-- 导航栏 -->
+        <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-4">
+            <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+                <a href="index.html" class="text-xl md:text-2xl font-light tracking-wider">PORTFOLIO</a>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="works.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">作品</a>
+                    <a href="about.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">关于</a>
+                    <a href="contact.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">联系</a>
+                </div>
+                <button class="md:hidden text-2xl" id="menu-toggle">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="fixed inset-0 bg-primary z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+            <div class="flex justify-end p-6">
+                <button id="menu-close" class="text-2xl">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+                <a href="works.html" class="hover:text-gray-300 transition-colors duration-300">作品</a>
+                <a href="about.html" class="hover:text-gray-300 transition-colors duration-300">关于</a>
+                <a href="contact.html" class="hover:text-gray-300 transition-colors duration-300">联系</a>
+            </div>
+        </div>
+
+        <!-- 页面内容 -->
+        <main class="pt-24 pb-16 px-6 md:px-12 container mx-auto">
+            <!-- 返回按钮 -->
+            <div class="mb-10">
+                <a href="works.html" class="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300">
+                    <i class="fa fa-arrow-left mr-2"></i>
+                    <span class="text-sm tracking-widest">返回作品列表</span>
+                </a>
+            </div>
+
+            <!-- 数据新闻标题 -->
+            <div class="mb-16 text-center">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-widest mb-4 data-title">韩漫动画化热潮掀起，海外呼声更高？</h1>
+                <p class="text-gray-400 max-w-2xl mx-auto">基于数据可视化的韩漫产业发展研究</p>
+            </div>
+
+            <!-- 数据新闻长图展示 -->
+            <div class="relative mb-16">
+                <div class="max-w-4xl mx-auto bg-data-purple-dark rounded-lg overflow-hidden">
+                    <img src="https://pic1.imgdb.cn/item/686ff06b58cb8da5c89ac1c0.png" alt="韩漫动画化数据新闻长图" class="w-full h-auto">
+                </div>
+                
+       
+
+            <!-- 数据新闻内容分解 -->
+            <div class="space-y-16 max-w-4xl mx-auto">
+                <!-- 内容概述 -->
+                <section class="data-section">
+                    <h3 class="text-2xl font-light mb-6">内容概述</h3>
+                    <div class="bg-data-purple-dark/50 p-6 rounded-lg">
+                        <p class="text-gray-300 leading-relaxed">
+                            本数据新闻作品通过对韩漫产业的深入研究，揭示了近年来韩漫在全球范围内的崛起及其动画化趋势。从市场规模、海外影响力、热门IP分析等多个维度，通过数据可视化的方式呈现韩漫产业的发展现状和未来趋势。
+                        </p>
+                        <p class="text-gray-300 leading-relaxed mt-4">
+                            作品采用黑紫色系作为主色调，既符合新闻严肃性，又展现了韩漫文化的现代感和创新性。通过多种图表类型和视觉元素的组合，使复杂的数据变得直观易懂，同时保持了视觉上的美感和吸引力。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 数据可视化亮点 -->
+                <section class="data-section">
+                    <h3 class="text-2xl font-light mb-6">数据可视化亮点</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-data-purple-dark/50 p-6 rounded-lg">
+                            <h4 class="text-xl font-light mb-3">韩漫海外市场渗透的动态呈现</h4>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                通过WEBTOON国际下载排名的折线图与多语言服务拓展的时间轴 ，直观展现韩漫平台的全球影响力。
+                            </p>
+                        </div>
+                        <div class="bg-data-purple-dark/50 p-6 rounded-lg">
+                            <h4 class="text-xl font-light mb-3">国内市场布局的分层对比</h4>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                借助分组平台引入情况的柱状图 ，拆解韩漫在华布局的 “两岸差异”。
+                            </p>
+                        </div>
+                        <div class="bg-data-purple-dark/50 p-6 rounded-lg">
+                            <h4 class="text-xl font-light mb-3">动画化作品的跨维度数据对照</h4>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                采用双维度对比，包括播放量 + 评分、两岸点赞 + 渠道 ，解析韩漫改动画的传播逻辑。
+                            </p>
+                        </div>
+                        <div class="bg-data-purple-dark/50 p-6 rounded-lg">
+                            <h4 class="text-xl font-light mb-3">韩漫动画化的海外合作轨迹</h4>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                通过漫改动画海外合作进程的时间轴 ，梳理产业协作脉络。
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 设计过程 -->
+                <section class="data-section">
+                    <h3 class="text-2xl font-light mb-6">设计过程</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-data-purple-dark/50 p-6 rounded-lg">
+                            <div class="text-data-purple-light text-3xl mb-4">
+                                <i class="fa fa-search"></i>
+                            </div>
+                            <h4 class="text-lg font-light mb-2">数据收集</h4>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                围绕韩漫平台生态、内容表现与海外产业协作维度，整合 NAVER 官方数据、第三方监测、内容消费及产业协作信息，经跨源交叉验证，构建全链路数据集 。
+                            </p>
+                        </div>
+                        <div class="bg-data-purple-dark/50 p-6 rounded-lg">
+                            <div class="text-data-purple-light text-3xl mb-4">
+                                <i class="fa fa-pencil"></i>
+                            </div>
+                            <h4 class="text-lg font-light mb-2">原型设计</h4>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                根据数据特点和表达需求，设计合适的图表类型和视觉元素，规划整体布局和信息层次结构。
+                            </p>
+                        </div>
+                        <div class="bg-data-purple-dark/50 p-6 rounded-lg">
+                            <div class="text-data-purple-light text-3xl mb-4">
+                                <i class="fa fa-paint-brush"></i>
+                            </div>
+                            <h4 class="text-lg font-light mb-2">视觉实现</h4>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                运用黑紫色系为主色调，结合引用到的漫画代表色调以及现代设计风格，实现数据的可视化表达，确保视觉效果和信息传达的平衡。
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+             
+            </div>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="bg-primary py-12 px-6 md:px-12 border-t border-gray-800">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-xl font-light tracking-wider mb-2">费月婷</h3>
+                        <p class="text-gray-400 text-sm">视觉设计师 | UI/UX设计师 | 编导</p>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="https://www.instagram.com/fmlycium?igsh=MXJ5NDZwemQ4bnFrNg==" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="https://www.behance.net/fmlyciumlin" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/%E6%9C%88%E5%A9%B7-%E8%B4%B9-35b483374" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-12 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
+                    <p>&copy; 2025 费月婷. 保留所有权利.</p>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // 导航栏滚动效果
+            window.addEventListener('scroll', function() {
+                const nav = document.getElementById('main-nav');
+                if (window.scrollY > 50) {
+                    nav.classList.add('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                    nav.classList.remove('py-4');
+                } else {
+                    nav.classList.remove('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                    nav.classList.add('py-4');
+                }
+                
+                // 更新滚动指示器
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("scrollIndicator").style.width = scrolled + "%";
+            });
+
+            // 移动端菜单
+            document.getElementById('menu-toggle').addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.remove('translate-x-full');
+            });
+
+            document.getElementById('menu-close').addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('translate-x-full');
+            });
+
+            // 滚动动画
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.data-section').forEach(section => {
+                observer.observe(section);
+            });
+        </script>
+    </body>
+    </html>
+    

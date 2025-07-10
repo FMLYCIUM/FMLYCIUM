@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 | 听书助眠APP & 医护APP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // 配置Tailwind自定义颜色和字体
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#121212',
+                        secondary: '#F5F5F5',
+                        accent: '#FFFFFF',
+                        // 听书助眠APP色系
+                        'theme-blue-1': '#E6EEF5',
+                        'theme-blue-2': '#BFD0E3',
+                        'theme-blue-3': '#99B2D1',
+                        'theme-blue-4': '#7494BF',
+                        'theme-blue-5': '#4A7AAC', // 主色调
+                        'theme-blue-6': '#375D80',
+                        // 医护APP色系
+                        'medical-blue-1': '#D4D9F7',
+                        'medical-blue-2': '#A9B3EF',
+                        'medical-blue-3': '#7E8DE7',
+                        'medical-blue-4': '#5367DE',
+                        'medical-blue-5': '#2841D6', // 主色调-蓝
+                        'medical-blue-6': '#1E31A5',
+                        'medical-purple-1': '#E6D4F7',
+                        'medical-purple-2': '#CCAAF0',
+                        'medical-purple-3': '#B37FE9',
+                        'medical-purple-4': '#9954E2',
+                        'medical-purple-5': '#7F29DB', // 主色调-紫
+                        'medical-purple-6': '#601FA5',
+                        'medical-orange-1': '#FFE6CC',
+                        'medical-orange-2': '#FFCC99',
+                        'medical-orange-3': '#FFB366',
+                        'medical-orange-4': '#FF9933',
+                        'medical-orange-5': '#FF8000', // 点缀色-橙
+                        'medical-orange-6': '#CC6600',
+                        'medical-yellow-1': '#FFF6CC',
+                        'medical-yellow-2': '#FFED99',
+                        'medical-yellow-3': '#FFE366',
+                        'medical-yellow-4': '#FFDA33',
+                        'medical-yellow-5': '#FFD100', // 点缀色-黄
+                        'medical-yellow-6': '#CCAA00',
+                        'dark-1': '#2A2A2A',
+                        'dark-2': '#202020',
+                        'dark-3': '#181818',
+                        'dark-4': '#101010',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .ui-card {
+                transition: all 0.3s ease;
+            }
+            .ui-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(40, 65, 214, 0.2);
+            }
+            .text-balance {
+                text-wrap: balance;
+            }
+            .pagination-btn {
+                @apply px-4 py-2 rounded-md transition-colors duration-300;
+            }
+            .pagination-btn.active {
+                @apply bg-medical-blue-5 text-white;
+            }
+            .gradient-overlay {
+                background: linear-gradient(to bottom, rgba(18, 18, 18, 0) 0%, rgba(18, 18, 18, 0.8) 100%);
+            }
+            .card-hover-effect {
+                transition: all 0.3s ease;
+            }
+            .card-hover-effect:hover {
+                transform: translateY(-8px);
+            }
+            .gradient-text {
+                background: linear-gradient(90deg, #2841D6, #7F29DB);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .video-container {
+                position: relative;
+                padding-bottom: 56.25%;
+                height: 0;
+                overflow: hidden;
+            }
+            .video-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .tab-content {
+                display: none;
+            }
+            .tab-content.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark-4 text-accent overflow-x-hidden">
+    <!-- 导航栏 -->
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-4">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-light tracking-wider">PORTFOLIO</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="works.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">作品</a>
+                <a href="about.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">关于</a>
+                <a href="contact.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">联系</a>
+            </div>
+            <button class="md:hidden text-2xl" id="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex justify-end p-6">
+            <button id="menu-close" class="text-2xl">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+            <a href="works.html" class="hover:text-gray-300 transition-colors duration-300">作品</a>
+            <a href="about.html" class="hover:text-gray-300 transition-colors duration-300">关于</a>
+            <a href="contact.html" class="hover:text-gray-300 transition-colors duration-300">联系</a>
+        </div>
+    </div>
+
+    <!-- 页面内容 -->
+    <main class="pt-24 pb-16 px-6 md:px-12 container mx-auto">
+        <!-- 返回按钮 -->
+        <div class="mb-10">
+            <a href="works.html" class="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300">
+                <i class="fa fa-arrow-left mr-2"></i>
+                <span class="text-sm tracking-widest">返回作品列表</span>
+            </a>
+        </div>
+
+        <!-- 作品标题 -->
+        <div class="mb-10 text-center">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-widest mb-4">UI设计作品集</h1>
+        </div>
+
+        <!-- 项目切换选项卡 -->
+        <div class="mb-12 flex justify-center">
+            <div class="inline-flex p-1 bg-dark-3 rounded-full">
+                <button id="tab-audiobook" class="tab-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 bg-theme-blue-5 text-white">
+                    听书助眠APP
+                </button>
+                <button id="tab-medical" class="tab-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 text-gray-300 hover:text-white">
+                    医护APP
+                </button>
+            </div>
+        </div>
+
+        <!-- 听书助眠APP内容 -->
+        <div id="content-audiobook" class="tab-content active">
+            <!-- 作品标题 -->
+            <div class="mb-16 text-center">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-widest mb-4">听书助眠APP</h1>
+                <p class="text-gray-400 max-w-2xl mx-auto">Whisper</p>
+            </div>
+
+            <!-- 作品说明 -->
+            <div class="mb-12 p-6 bg-theme-blue-6/20 rounded-lg">
+                <h3 class="text-xl font-light mb-4">项目说明</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    这款听书助眠APP旨在为用户提供沉浸式的听书和助眠体验。采用主题蓝与黑色的配色方案，营造出宁静、放松的氛围，帮助用户在睡前放松身心，进入睡眠状态。APP包含丰富的有声书籍库和多种自然音效，界面设计简洁直观，操作便捷流畅。
+                </p>
+                <div class="mt-6 flex flex-wrap gap-4">
+                    <div class="flex items-center">
+                        <i class="fa fa-calendar-o mr-2 text-theme-blue-4"></i>
+                        <span class="text-sm text-gray-400">2025年作品</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa fa-picture-o mr-2 text-theme-blue-4"></i>
+                        <span class="text-sm text-gray-400">1个UI设计项目</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa fa-tags mr-2 text-theme-blue-4"></i>
+                        <span class="text-sm text-gray-400">移动应用、用户界面、助眠、听书</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UI界面高保真展示 -->
+            <div class="mb-16">
+                <h3 class="text-xl font-light mb-6">UI界面高保真设计</h3>
+                <div class="bg-dark-3 rounded-lg overflow-hidden relative group">
+                    <img src="https://pic1.imgdb.cn/item/686fdb4a58cb8da5c89abb96.png" alt="听书助眠APP UI界面高保真设计" class="w-full h-auto">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686fdb4a58cb8da5c89abb96.png', 'UI界面高保真设计', '透明底')">查看大图</button>
+                    </div>
+                </div>
+                <div class="mt-3 flex items-center justify-between">
+                    <h4 class="text-base font-light">听书助眠APP UI界面高保真设计</h4>
+                    <span class="text-xs text-gray-400">听书界面</span>
+                </div>
+            </div>
+
+             <!-- 视频展示 -->
+            <div class="mb-16">
+                <h3 class="text-xl font-light mb-6">UI交互视频</h3>
+                <div class="bg-dark-3 rounded-lg overflow-hidden">
+                    <div class="video-container">
+                        <!-- 替换为B站内嵌代码 -->
+                        <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=114823635404400&bvid=BV1u9GwzMEna&cid=30943022052&&page=1&high_quality=1" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
+                    </div>
+                </div>
+                <div class="mt-3 flex items-center justify-between">
+                    <h4 class="text-base font-light">听书助眠APP UI交互展示</h4>
+                    <span class="text-xs text-gray-400">主题蓝和黑色系</span>
+                </div>
+            </div>
+            <!-- 设计细节 -->
+            <div class="mb-16">
+                <h3 class="text-xl font-light mb-6">设计细节</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- 设计细节1 -->
+                    <div class="bg-dark-3 rounded-lg p-6">
+                        <h4 class="text-lg font-light mb-4">色彩方案</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            采用主题蓝和黑色作为主色调，营造出夜晚宁静、放松的氛围，非常适合助眠类应用。
+                        </p>
+                        <div class="mt-4 flex space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-theme-blue-1"></div>
+                            <div class="w-8 h-8 rounded-full bg-theme-blue-3"></div>
+                            <div class="w-8 h-8 rounded-full bg-theme-blue-5"></div>
+                            <div class="w-8 h-8 rounded-full bg-dark-2"></div>
+                            <div class="w-8 h-8 rounded-full bg-dark-4"></div>
+                        </div>
+                    </div>
+
+                    <!-- 设计细节2 -->
+                    <div class="bg-dark-3 rounded-lg p-6">
+                        <h4 class="text-lg font-light mb-4">排版系统</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            使用苹方字体，建立了清晰的字体层级结构。大尺寸的标题字体提高了内容的可读性，适中的行高和字间距保证了长时间阅读的舒适性。特殊的强调文字使用了主题蓝渐变，增强了视觉焦点。
+                        </p>
+                        <div class="mt-4 space-y-2">
+                            <p class="text-2xl font-light">标题文字</p>
+                            <p class="text-lg font-normal">正文文字</p>
+                            <p class="text-sm text-gray-400">辅助文字</p>
+                            <p class="text-xs text-theme-blue-4">链接文字</p>
+                        </div>
+                    </div>
+
+                    <!-- 设计细节3 -->
+                    <div class="bg-dark-3 rounded-lg p-6">
+                        <h4 class="text-lg font-light mb-4">交互设计</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            设计了丰富的微交互效果，如平滑的页面过渡、轻柔的按钮反馈和自然的滚动效果。音频播放控制区域采用了圆形设计，符合用户直觉，旋转动画增强了操作的趣味性和沉浸感。
+                        </p>
+                       
+                    </div>
+
+                    <!-- 设计细节4 -->
+                    <div class="bg-dark-3 rounded-lg p-6">
+                        <h4 class="text-lg font-light mb-4">功能模块</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            应用包含书架、发现、分类、助眠音频和个人中心等主要功能模块。每个模块都有独特的视觉设计和交互方式，但保持了整体风格的一致性。特别优化了夜间助眠模式，降低屏幕亮度的同时保持了良好的可读性。
+                        </p>
+                        <div class="mt-4">
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center">
+                                    <i class="fa fa-bookmark-o mr-2 text-theme-blue-4"></i>
+                                    <span>个性化书架</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-compass mr-2 text-theme-blue-4"></i>
+                                    <span>内容发现</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-headphones mr-2 text-theme-blue-4"></i>
+                                    <span>音频播放控制</span>
+                                </li>
+
+                                <li class="flex items-center">
+                                    <i class="fa fa-cog mr-2 text-theme-blue-4"></i>
+                                    <span>个性化设置</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 医护APP内容 -->
+        <div id="content-medical" class="tab-content">
+            <!-- 作品标题 -->
+            <div class="mb-16 text-center">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-widest mb-4">医护APP</h1>
+                <p class="text-gray-400 max-w-2xl mx-auto">蕙心医护</p>
+            </div>
+
+            <!-- 作品说明 -->
+            <div class="mb-12 p-6 bg-gradient-to-r from-medical-blue-6/20 to-medical-purple-6/20 rounded-lg">
+                <h3 class="text-xl font-light mb-4">项目说明</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    这款医护APP的产品定位为软硬件结合，专注于老年病患者的健康守护类app，以中老年人为主要目标群体。采用蓝紫为主、橙黄点缀的配色方案，蓝色代表专业与信任，紫色象征关怀与同理心，橙色和黄色则为界面增添活力与温暖。APP包含在线就诊、在线购药、医疗记录查阅、消息通知等核心功能，界面简洁直观，操作便捷流畅。
+                </p>
+                <div class="mt-6 flex flex-wrap gap-4">
+                    <div class="flex items-center">
+                        <i class="fa fa-calendar-o mr-2 text-medical-blue-4"></i>
+                        <span class="text-sm text-gray-400">2023年作品</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa fa-picture-o mr-2 text-medical-blue-4"></i>
+                        <span class="text-sm text-gray-400">3个UI展示项目</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa fa-tags mr-2 text-medical-blue-4"></i>
+                        <span class="text-sm text-gray-400">移动应用、用户界面、医疗</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UI界面高保真展示 -->
+            <div class="mb-16">
+                <h3 class="text-xl font-light mb-6">UI界面高保真设计</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- 设计图1 - ICON页面 -->
+                    <div class="bg-dark-3 rounded-lg overflow-hidden relative group">
+                        <img src="https://pic1.imgdb.cn/item/686ff55458cb8da5c89ac34a.png" alt="医护APP图标设计页面" class="w-full h-auto">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686ff55458cb8da5c89ac34a.png', '医护APP图标设计', '透明底')">查看大图</button>
+                        </div>
+                    </div>
+                    <!-- 设计图2 - ICON页面 -->
+                    <div class="bg-dark-3 rounded-lg overflow-hidden relative group">
+                        <img src="https://pic1.imgdb.cn/item/686ff55458cb8da5c89ac34b.png" alt="医护APP图标设计页面" class="w-full h-auto">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686ff55458cb8da5c89ac34b.png', '医护APP图标设计', '透明底')">查看大图</button>
+                        </div>
+                    </div>
+                    <!-- 设计图3 - 高保真排版 -->
+                    <div class="bg-dark-3 rounded-lg overflow-hidden relative group md:col-span-2">
+                        <img src="https://pic1.imgdb.cn/item/686ff55458cb8da5c89ac34c.png" alt="医护APP高保真设计" class="w-full h-auto">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="px-4 py-2 border border-white text-sm tracking-widest" onclick="openModal('https://pic1.imgdb.cn/item/686ff55458cb8da5c89ac34c.png', '医护APP高保真设计', '透明底')">查看大图</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+                   
+                    <div>
+                        <h4 class="text-base font-light">医护APP图标与高保真设计</h4>
+                        <span class="text-xs text-gray-400">部分展示</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 设计细节 -->
+            <div class="mb-16">
+                <h3 class="text-xl font-light mb-6">设计细节</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- 设计细节1 -->
+                    <div class="bg-dark-3 rounded-lg p-6">
+                        <h4 class="text-lg font-light mb-4">色彩方案</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            采用蓝紫为主、橙黄点缀的配色方案。蓝色象征专业与信任，紫色代表关怀与同理心，橙黄色作为点缀色增添活力与温暖。这种配色方案既体现了医疗行业的专业性，又不失人文关怀。
+                        </p>
+                        <div class="mt-4 flex space-x-2 flex-wrap">
+                            <div class="w-8 h-8 rounded-full bg-medical-blue-1"></div>
+                            <div class="w-8 h-8 rounded-full bg-medical-blue-3"></div>
+                            <div class="w-8 h-8 rounded-full bg-medical-blue-5"></div>
+                            <div class="w-8 h-8 rounded-full bg-medical-purple-3"></div>
+                            <div class="w-8 h-8 rounded-full bg-medical-purple-5"></div>
+                            <div class="w-8 h-8 rounded-full bg-medical-orange-3"></div>
+                            <div class="w-8 h-8 rounded-full bg-medical-yellow-3"></div>
+                        </div>
+                    </div>
+
+                    <!-- 设计细节2 -->
+                    <div class="bg-dark-3 rounded-lg p-6">
+                        <h4 class="text-lg font-light mb-4">图标设计</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            设计了一套统一风格的医疗专业图标，采用简洁明了的几何形状，确保在小尺寸下依然清晰可辨。图标色彩与整体配色方案保持一致，根据功能重要性和使用频率分配不同的颜色，提高界面的可读性和操作效率。
+                        </p>
+                        <div class="mt-4">
+                            <img src="https://pic1.imgdb.cn/item/686ff55458cb8da5c89ac349.png" alt="图标设计细节" class="w-full h-auto rounded-md">
+                        </div>
+                    </div>
+
+                    <!-- 设计细节3 -->
+                    <div class="bg-dark-3 rounded-lg p-6">
+                        <h4 class="text-lg font-light mb-4">高保真设计</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            基于前期的原型设计，制作了完整的高保真UI界面，展示了医护APP的最终视觉效果。界面采用卡片式布局，清晰区分不同类型的信息，同时通过微妙的阴影和层次感增强了界面的深度感和立体感。
+                        </p>
+                        <div class="mt-4">
+                            <img src="https://pic1.imgdb.cn/item/686ff55458cb8da5c89ac348.png" alt="高保真设计细节" class="w-full h-auto rounded-md">
+                        </div>
+                    </div>
+
+                    <!-- 设计细节4 -->
+                    <div class="bg-dark-3 rounded-lg p-6">
+                        <h4 class="text-lg font-light mb-4">功能模块</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            医护APP包含在线就诊、在线购药、医疗记录查阅、消息通知等核心功能。每个功能模块都经过精心设计。界面布局合理，操作流程简洁，减少不必要的点击和等待时间。
+                        </p>
+                        <div class="mt-4">
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center">
+                                    <i class="fa fa-user-md mr-2 text-medical-blue-4"></i>
+                                    <span>家人管理</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-heartbeat mr-2 text-medical-purple-4"></i>
+                                    <span>健康档案</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-calendar-check-o mr-2 text-medical-orange-4"></i>
+                                    <span>购药清单</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-file-text-o mr-2 text-medical-blue-4"></i>
+                                    <span>医疗记录查阅</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-bell-o mr-2 text-medical-yellow-4"></i>
+                                    <span>消息通知系统</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模态框 -->
+        <div id="image-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 opacity-0 pointer-events-none transition-opacity duration-300">
+            <div class="max-w-5xl w-full mx-4 relative">
+                <button id="close-modal" class="absolute -top-12 right-0 text-white text-2xl">
+                    <i class="fa fa-times"></i>
+                </button>
+                <img id="modal-image" src="" alt="大图预览" class="w-full h-auto rounded-lg">
+                <div class="mt-3">
+                    <h3 id="modal-title" class="text-lg font-light"></h3>
+                    <p id="modal-caption" class="text-sm text-gray-400"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+        <!-- 页脚 -->
+        <footer class="bg-primary py-12 px-6 md:px-12 border-t border-gray-800">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-xl font-light tracking-wider mb-2">费月婷</h3>
+                        <p class="text-gray-400 text-sm">视觉设计师 | UI/UX设计师 | 编导</p>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="https://www.instagram.com/fmlycium?igsh=MXJ5NDZwemQ4bnFrNg==" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="https://www.behance.net/fmlyciumlin" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/%E6%9C%88%E5%A9%B7-%E8%B4%B9-35b483374" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-12 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
+                    <p>&copy; 2025 费月婷. 保留所有权利.</p>
+                </div>
+            </div>
+        </footer>
+
+    <script>
+        // 导航栏滚动效果
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-dark-4/95', 'backdrop-blur-md', 'shadow-lg');
+                nav.classList.remove('py-4');
+                nav.classList.add('py-3');
+            } else {
+                nav.classList.remove('bg-dark-4/95', 'backdrop-blur-md', 'shadow-lg');
+                nav.classList.remove('py-3');
+                nav.classList.add('py-4');
+            }
+        });
+
+        // 移动端菜单
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+
+        menuClose.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+        });
+
+        // 选项卡切换
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有按钮的活跃状态
+                tabBtns.forEach(b => {
+                    b.classList.remove('bg-theme-blue-5', 'bg-medical-blue-5', 'text-white');
+                    b.classList.add('text-gray-300');
+                });
+
+                // 添加当前按钮的活跃状态
+                btn.classList.add('text-white');
+                if (btn.id === 'tab-audiobook') {
+                    btn.classList.add('bg-theme-blue-5');
+                } else {
+                    btn.classList.add('bg-medical-blue-5');
+                }
+
+                // 隐藏所有内容
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                // 显示对应内容
+                const targetContent = document.getElementById(`content-${btn.id.split('-')[1]}`);
+                targetContent.classList.add('active');
+            });
+        });
+
+        // 模态框功能
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalTitle = document.getElementById('modal-title');
+        const modalCaption = document.getElementById('modal-caption');
+        const closeModal = document.getElementById('close-modal');
+
+        function openModal(src, title, caption) {
+            modalImage.src = src;
+            modalTitle.textContent = title;
+            modalCaption.textContent = caption;
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+        }
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = '';
+        });
+
+        // 点击模态框背景关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>

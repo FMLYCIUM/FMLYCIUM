@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 | 编导作品</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#121212',
+                        secondary: '#F5F5F5',
+                        accent: '#FFFFFF',
+                        'video-blue': '#1E88E5',
+                        'video-green': '#43A047',
+                        'video-red': '#E53935',
+                        'video-purple': '#8E24AA',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .video-card {
+                transition: all 0.3s ease;
+            }
+            .video-card:hover {
+                transform: translateY(-5px);
+            }
+            .play-button {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+                transition: all 0.3s ease;
+            }
+            .video-thumb:hover .play-button {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            .video-overlay {
+                background: linear-gradient(to bottom, rgba(18, 18, 18, 0) 0%, rgba(18, 18, 18, 0.8) 100%);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .video-thumb:hover .video-overlay {
+                opacity: 1;
+            }
+            .iframe-container {
+                position: relative;
+                width: 100%;
+                height: 0;
+                padding-bottom: 56.25%; /* 16:9 宽高比 */
+            }
+            .iframe-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-primary text-accent overflow-x-hidden">
+    <!-- 导航栏 -->
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-4">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-light tracking-wider">PORTFOLIO</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="works.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">作品</a>
+                <a href="about.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">关于</a>
+                <a href="contact.html" class="text-sm tracking-widest hover:text-gray-300 transition-colors duration-300">联系</a>
+            </div>
+            <button class="md:hidden text-2xl" id="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex justify-end p-6">
+            <button id="menu-close" class="text-2xl">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+            <a href="works.html" class="hover:text-gray-300 transition-colors duration-300">作品</a>
+            <a href="about.html" class="hover:text-gray-300 transition-colors duration-300">关于</a>
+            <a href="contact.html" class="hover:text-gray-300 transition-colors duration-300">联系</a>
+        </div>
+    </div>
+
+    <!-- 页面内容 -->
+    <main class="pt-24 pb-16 px-6 md:px-12 container mx-auto">
+        <!-- 返回按钮 -->
+        <div class="mb-10">
+            <a href="works.html" class="inline-flex items-center text-gray-400 hover:text-white transition-colors duration-300">
+                <i class="fa fa-arrow-left mr-2"></i>
+                <span class="text-sm tracking-widest">返回作品列表</span>
+            </a>
+        </div>
+
+        <!-- 作品标题 -->
+        <div class="mb-16 text-center">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-widest mb-4">编导作品</h1>
+            <p class="text-gray-400 max-w-2xl mx-auto">探索我的视频创作作品集，涵盖人物专题片、校园抒情片和剧情短片等多个类型</p>
+        </div>
+
+        <!-- 视频分类标签 - 装饰性元素 -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <div class="px-6 py-2 border border-video-blue rounded-full text-sm tracking-widest text-video-blue cursor-default">
+                人物专题
+            </div>
+            <div class="px-6 py-2 border border-video-green rounded-full text-sm tracking-widest text-video-green cursor-default">
+                校园抒情
+            </div>
+            <div class="px-6 py-2 border border-video-red rounded-full text-sm tracking-widest text-video-red cursor-default">
+                剧情短片
+            </div>
+        </div>
+
+        <!-- 视频网格 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- 视频1：人物专题片 -->
+            <div class="video-card">
+                <div class="relative rounded-lg overflow-hidden aspect-video mb-4 group cursor-pointer" data-video-id="0">
+                    <img src="https://pic1.imgdb.cn/item/686fe21c58cb8da5c89abd36.png" alt="人物专题片缩略图" class="w-full h-full object-cover">
+                    <div class="video-overlay absolute inset-0"></div>
+                    <div class="play-button absolute top-1/2 left-1/2 w-16 h-16 bg-video-blue/80 rounded-full flex items-center justify-center">
+                        <i class="fa fa-play text-white text-xl"></i>
+                    </div>
+                    <div class="absolute top-3 right-3 bg-primary/70 text-white text-xs px-2 py-1 rounded">
+                        3:00
+                    </div>
+                </div>
+                <h3 class="text-lg font-light mb-2">人物专题片：掐丝珐琅的传承</h3>
+                <p class="text-sm text-gray-400 mb-3">这是一部关于大学生创作掐丝珐琅的人物专题纪录片，记录了传承掐丝珐琅的创作历程。</p>
+                <div class="flex items-center text-xs text-gray-500">
+                    <span class="flex items-center mr-4">
+                        <i class="fa fa-calendar-o mr-1"></i> 2025.05.15
+                    </span>
+
+                </div>
+            </div>
+
+            <!-- 视频2：校园抒情片1 -->
+            <div class="video-card">
+                <div class="relative rounded-lg overflow-hidden aspect-video mb-4 group cursor-pointer" data-video-id="1">
+                    <img src="https://pic1.imgdb.cn/item/686fe21c58cb8da5c89abd38.png" alt="校园抒情片1缩略图" class="w-full h-full object-cover">
+                    <div class="video-overlay absolute inset-0"></div>
+                    <div class="play-button absolute top-1/2 left-1/2 w-16 h-16 bg-video-green/80 rounded-full flex items-center justify-center">
+                        <i class="fa fa-play text-white text-xl"></i>
+                    </div>
+                    <div class="absolute top-3 right-3 bg-primary/70 text-white text-xs px-2 py-1 rounded">
+                        1:00
+                    </div>
+                </div>
+                <h3 class="text-lg font-light mb-2">校园抒情片：青春的印记</h3>
+                <p class="text-sm text-gray-400 mb-3">这部校园抒情片以一天的时间为线索，记录了校园生活中的点滴美好，展现了青春岁月的珍贵回忆。</p>
+                <div class="flex items-center text-xs text-gray-500">
+                    <span class="flex items-center mr-4">
+                        <i class="fa fa-calendar-o mr-1"></i> 2023.06.29
+                    </span>
+
+                </div>
+            </div>
+
+            <!-- 视频3：校园抒情片2 -->
+            <div class="video-card">
+                <div class="relative rounded-lg overflow-hidden aspect-video mb-4 group cursor-pointer" data-video-id="2">
+                    <img src="https://pic1.imgdb.cn/item/686fe21c58cb8da5c89abd37.png" alt="校园抒情片2缩略图" class="w-full h-full object-cover">
+                    <div class="video-overlay absolute inset-0"></div>
+                    <div class="play-button absolute top-1/2 left-1/2 w-16 h-16 bg-video-green/80 rounded-full flex items-center justify-center">
+                        <i class="fa fa-play text-white text-xl"></i>
+                    </div>
+                    <div class="absolute top-3 right-3 bg-primary/70 text-white text-xs px-2 py-1 rounded">
+                        1:00
+                    </div>
+                </div>
+                <h3 class="text-lg font-light mb-2">校园抒情片：毕业季</h3>
+                <p class="text-sm text-gray-400 mb-3">记录了毕业生在最后一个学期的情感变化，展现了离别的不舍和对未来的期待。</p>
+                <div class="flex items-center text-xs text-gray-500">
+                    <span class="flex items-center mr-4">
+                        <i class="fa fa-calendar-o mr-1"></i> 2023.10.30
+                    </span>
+
+                </div>
+            </div>
+
+            <!-- 视频4：剧情短片 -->
+            <div class="video-card">
+                <div class="relative rounded-lg overflow-hidden aspect-video mb-4 group cursor-pointer" data-video-id="3">
+                    <img src="https://pic1.imgdb.cn/item/686fe21c58cb8da5c89abd39.png" alt="剧情短片缩略图" class="w-full h-full object-cover">
+                    <div class="video-overlay absolute inset-0"></div>
+                    <div class="play-button absolute top-1/2 left-1/2 w-16 h-16 bg-video-red/80 rounded-full flex items-center justify-center">
+                        <i class="fa fa-play text-white text-xl"></i>
+                    </div>
+                    <div class="absolute top-3 right-3 bg-primary/70 text-white text-xs px-2 py-1 rounded">
+                        3:54
+                    </div>
+                </div>
+                <h3 class="text-lg font-light mb-2">剧情短片：逃离辽博</h3>
+                <p class="text-sm text-gray-400 mb-3">博物馆在逃馆藏。</p>
+                <div class="flex items-center text-xs text-gray-500">
+                    <span class="flex items-center mr-4">
+                        <i class="fa fa-calendar-o mr-1"></i> 2023.09.10
+                    </span>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 视频详情模态框（优化B站iframe容器） -->
+        <div id="video-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+            <div class="relative w-full max-w-5xl mx-4">
+                <button id="close-modal" class="absolute -top-12 right-0 text-white text-2xl hover:text-gray-300 transition-colors duration-300">
+                    <i class="fa fa-times"></i>
+                </button>
+                <!-- B站视频容器（使用专用iframe容器类） -->
+                <div id="bilibili-player-container" class="iframe-container bg-primary rounded-lg overflow-hidden"></div>
+                <div class="mt-4">
+                    <h3 class="text-xl font-light" id="modal-title">视频标题</h3>
+                    <p class="text-sm text-gray-400 mt-2" id="modal-description">视频描述</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-primary py-12 px-6 md:px-12 border-t border-gray-800">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-xl font-light tracking-wider mb-2">费月婷</h3>
+                    <p class="text-gray-400 text-sm">视觉设计师 | UI/UX设计师 | 编导</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://www.instagram.com/fmlycium?igsh=MXJ5NDZwemQ4bnFrNg==" class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                    <a href="https://www.behance.net/fmlyciumlin" class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <i class="fa fa-behance"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/%E6%9C%88%E5%A9%B7-%E8%B4%B9-35b483374" class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-12 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 费月婷. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.remove('bg-primary/90', 'backdrop-blur-sm', 'py-2', 'shadow-lg');
+                nav.classList.add('py-4');
+            }
+        });
+
+        // 移动端菜单
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.remove('translate-x-full');
+        });
+
+        document.getElementById('menu-close').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('translate-x-full');
+        });
+
+        // 视频模态框（适配B站）
+        const videoModal = document.getElementById('video-modal');
+        const playerContainer = document.getElementById('bilibili-player-container');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const closeModal = document.getElementById('close-modal');
+        const videoCards = document.querySelectorAll('.video-card .group');
+
+        // 视频数据（存储B站嵌入代码）
+        const videos = [
+            {
+                title: "人物专题片：掐丝珐琅的传承",
+                description: "这是一部关于大学生创作掐丝珐琅的人物专题纪录片，记录了传承掐丝珐琅的创作历程。",
+                thumbnail: "video1-thumb.png",
+                bilibiliIframe: '<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=114828417179603&bvid=BV1xZG3zsEKM&cid=30958160698&page=1&high_quality=1" allowfullscreen="allowfullscreen" width="100%" height="100%" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>'
+            },
+            {
+                title: "校园抒情片：青春的印记",
+                description: "这部校园抒情片以一天的时间为线索，记录了校园生活中的点滴美好，展现了青春岁月的珍贵回忆。",
+                thumbnail: "video2-thumb.jpg",
+                bilibiliIframe: '<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=114828484091541&bvid=BV1uQG3zhEJG&cid=30958552955&page=1&high_quality=1" allowfullscreen="allowfullscreen" width="100%" height="100%" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>'
+            },
+            {
+                title: "校园抒情片：毕业季",
+                description: "记录了毕业生在最后一个学期的情感变化，展现了离别的不舍和对未来的期待。",
+                thumbnail: "video3-thumb.jpg",
+                bilibiliIframe: '<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=114828517643175&bvid=BV1ATGGznEMS&cid=30958748404&page=1&high_quality=1" allowfullscreen="allowfullscreen" width="100%" height="100%" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>'
+            },
+            {
+                title: "剧情短片：逃离辽博",
+                description: "博物馆在逃馆藏。",
+                thumbnail: "video4-thumb.png",
+                bilibiliIframe: '<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=114828534354764&bvid=BV163GGz2EhW&cid=30958750729&page=1&high_quality=1" allowfullscreen="allowfullscreen" width="100%" height="100%" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>'
+            }
+        ];
+
+        // 打开视频模态框（插入B站iframe）
+        videoCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const videoId = parseInt(card.dataset.videoId);
+                const video = videos[videoId];
+                
+                // 更新标题和描述
+                modalTitle.textContent = video.title;
+                modalDescription.textContent = video.description;
+                
+                // 插入B站播放器前清空容器
+                playerContainer.innerHTML = '';
+                playerContainer.innerHTML = video.bilibiliIframe;
+                
+                // 显示模态框
+                videoModal.classList.remove('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = 'hidden';
+                
+                // 为确保iframe加载，添加加载完成后的回调
+                const iframe = playerContainer.querySelector('iframe');
+                if (iframe) {
+                    // 某些浏览器支持onload事件
+                    iframe.onload = function() {
+                        console.log('B站视频加载完成');
+                    };
+                }
+            });
+        });
+
+        // 关闭模态框（清空播放器）
+        closeModal.addEventListener('click', () => {
+            // 清空播放器避免音频继续播放
+            playerContainer.innerHTML = '';
+            videoModal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = '';
+        });
+
+        // 点击模态框背景关闭
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                playerContainer.innerHTML = '';
+                videoModal.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // 键盘ESC关闭模态框
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !videoModal.classList.contains('opacity-0')) {
+                playerContainer.innerHTML = '';
+                videoModal.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // 窗口大小变化时重新计算iframe高度
+        window.addEventListener('resize', function() {
+            // 强制刷新iframe布局
+            if (playerContainer.querySelector('iframe')) {
+                const iframe = playerContainer.querySelector('iframe');
+                const temp = iframe.src;
+                iframe.src = 'about:blank';
+                iframe.src = temp;
+            }
+        });
+    </script>
+</body>
+</html>
